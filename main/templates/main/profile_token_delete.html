@@ -1,0 +1,18 @@
+{% extends "layout/basic.html" %}
+
+{% block title %}Удаление монеты из списка - Профиль пользователя{% endblock %}
+
+{% block content %}
+<h2>Удаление монеты из списка</h2>
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col">
+            <h2>{{ bb.token_name }}</h2>
+        </div>
+    </div>
+</div>
+<form method="post">
+    {% csrf_token %}
+    <input type="submit" value="Удалить">
+</form>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "layout/basic.html" %}
+
+{% load bootstrap4 %}
+{% block title %}Добавление новой монеты - Профиль пользователя{% endblock %}
+
+{% block content %}
+<h2>Добавление новой монеты</h2>
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form layout='horizontal' %}
+    {% buttons submit='Добавить' %}{% endbuttons %}
+</form>
+{% endblock %}

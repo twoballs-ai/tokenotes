@@ -1,0 +1,241 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{% block title %}Главная{% endblock %} - tokenote.ru записная книжка для ваших монет</title>
+        {% bootstrap_css %}
+        <link rel="stylesheet" type="text/css"
+        href="{% static 'main/style.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+
+        {% bootstrap_javascript jquery='slim' %}
+    </head>
+    <body class="container-fluid"
+          style="background-color: #f7f9f9">
+        <header class="mb-4">
+            <h1 class="display-4 text-center">tokenote</h1>
+        </header>
+        <div class="row">
+            <ul class="col nav justify-content-end border"
+            class="text-center text-lg-start text-dark"
+          style="background-color: #ECEFF1"
+            >
+
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                    href="#" role="button" aria-haspopup="true"
+                    aria-expanded="false">Профиль</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'main:profile' %}">Мои монеты</a>
+                        <a class="dropdown-item" href="{% url 'main:profile_change' %}">Изменить личные
+                        данные</a>
+                        <a class="dropdown-item" href="{% url 'main:password_change' %}">Изменить пароль</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'main:logout' %}">Выйти</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'main:profile_delete' %}">Удалить</a>
+                    </div>
+                </li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link"
+                href="{% url 'main:register' %}">Регистрация</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'main:login' %}">Вход</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="row">
+            <nav class="col-md-auto nav flex-column border"
+            class="text-center text-lg-start text-dark"
+          style="background-color: #ECEFF1">
+             <a class="nav-link root"
+                href="{% url 'main:index' %}"><h6 class="text-uppercase fw-bold">Главная</h6></a>
+            <hr
+                class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 60px; background-color: #7c4dff; height: 2px"
+                />
+
+                {% for rubric in rubrics %}
+                {% ifchanged rubric.super_rubric.pk %}
+                <span class="nav-link root font-weight-bold">
+                {{ rubric.super_rubric.name }}</span>
+                {% endifchanged %}
+                <a class="nav-link" href="{% url 'main:by_rubric' pk=rubric.pk %}">
+                {{ rubric.name }}</a>
+                {% endfor %}
+             <a class="nav-link root"
+                href="{% url 'main:other' page='about' %}"><h6 class="text-uppercase fw-bold">О сайте</h6></a>
+            <hr
+                class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 60px; background-color: #7c4dff; height: 2px"
+                />
+
+            </nav>
+            <section class="col border py-2"
+            class="text-center text-lg-start text-dark"
+          style="background-color: #f7f9f9"
+            >
+                {% bootstrap_messages %}
+                {% block content %}
+
+                {% endblock %}
+            </section>
+        </div>
+
+    <footer
+          class="text-center text-lg-start text-dark"
+          style="background-color: #ECEFF1"
+          >
+    <!-- Section: Social media -->
+    <section
+             class="d-flex justify-content-between p-4 text-white"
+             style="background-color: #21D192"
+             >
+      <!-- Left -->
+      <div class="me-5">
+        <span>Мы в социальных сетях:</span>
+      </div>
+      <!-- Left -->
+
+      <!-- Right -->
+      <div>
+
+        <a href="" class="text-white me-4">
+          <i class="fab fa-telegram"></i>
+        </a>
+{#          <a href="" class="text-white me-4">#}
+{#          <i class="fab fa-facebook-f"></i>#}
+{#        </a>#}
+{##}
+{#        <a href="" class="text-white me-4">#}
+{#          <i class="fab fa-twitter"></i>#}
+{#        </a>#}
+{#        <a href="" class="text-white me-4">#}
+{#          <i class="fab fa-google"></i>#}
+{#        </a>#}
+{#        <a href="" class="text-white me-4">#}
+{#          <i class="fab fa-instagram"></i>#}
+{#        </a>#}
+{#        <a href="" class="text-white me-4">#}
+{#          <i class="fab fa-linkedin"></i>#}
+{#        </a>#}
+        <a href="" class="text-white me-4">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <!-- Right -->
+    </section>
+    <!-- Section: Social media -->
+
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase fw-bold">tokenote.ru</h6>
+            <hr
+                class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 70px; background-color: #7c4dff; height: 2px"
+                />
+            <p>
+               TOKENOTE.RU- это удобный сервис для учета ваших криптомонет.</p>
+                <p>Вы можете продолжать вести учет на листке бумаги или в екселе,
+              но tokenote добавит вам новый уровень мобильности и удобства!</p>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+{#          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">#}
+{#            <!-- Links -->#}
+{#            <h6 class="text-uppercase fw-bold">Products</h6>#}
+{#            <hr#}
+{#                class="mb-4 mt-0 d-inline-block mx-auto"#}
+{#                style="width: 60px; background-color: #7c4dff; height: 2px"#}
+{#                />#}
+{#            <p>#}
+{#              <a href="#!" class="text-dark">MDBootstrap</a>#}
+{#            </p>#}
+{#            <p>#}
+{#              <a href="#!" class="text-dark">MDWordPress</a>#}
+{#            </p>#}
+{#            <p>#}
+{#              <a href="#!" class="text-dark">BrandFlow</a>#}
+{#            </p>#}
+{#            <p>#}
+{#              <a href="#!" class="text-dark">Bootstrap Angular</a>#}
+{#            </p>#}
+{#          </div>#}
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold">Ссылки</h6>
+            <hr
+                class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 60px; background-color: #7c4dff; height: 2px"
+                />
+            <p>
+              <a href="{% url 'main:other' page='about' %}" class="text-dark">О сайте</a>
+            </p>
+{#            <p>#}
+{#              <a href="#!" class="text-dark">Become an Affiliate</a>#}
+{#            </p>#}
+{#            <p>#}
+{#              <a href="#!" class="text-dark">Shipping Rates</a>#}
+{#            </p>#}
+{#            <p>#}
+{#              <a href="#!" class="text-dark">Помощь</a>#}
+{#            </p>#}
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold">Контакты</h6>
+            <hr
+                class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 60px; background-color: #7c4dff; height: 2px"
+                />
+{#            <p><i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>#}
+            <p><i class="fas fa-envelope mr-3"></i> info@tokenote.ru</p>
+{#            <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>#}
+{#            <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>#}
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+
+    <!-- Copyright -->
+    <div
+         class="text-center p-3"
+         style="background-color: rgba(0, 0, 0, 0.2)"
+         >
+      © 2021
+      <a class="text-dark" href="https://tokenote.ru/"
+         >tokenote.ru</a>
+         &nbsp;&nbsp;&nbsp;&nbsp;Создано и разработано
+         <a class="text-dark" href="https://intellity.ru/"
+         >intellity.ru</a
+        >
+    </div>
+    <!-- Copyright -->
+  </footer>
+
+    </body>
+
+
+  <!-- Footer -->
+</html>

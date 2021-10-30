@@ -1,0 +1,64 @@
+{% extends "layout/basic.html" %}
+
+{% load thumbnail %}
+{% load static %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}
+
+<h2>Профиль пользователя {{ user.username }}</h2>
+{% if user.first_name and user.last_name %}
+<p>Здравствуйте, {{ user.first_name }} {{ user.last_name }}!</p>
+{% else %}
+<p>Здравствуйте!</p>
+{% endif %}
+{#<p><a href="{% url 'main:profile_bb_add' %}">Добавить объявление</a></p>#}
+<p><a href="{% url 'main:profile_token_add' %}">Добавить монету</a></p>
+{% if token_list %}
+<ul class="list-unstyled">
+        {% url 'main:profile_token_detail' pk=bb.pk as url %}
+        <a href="{{ url }}{{ all }}">
+        </a>
+          <h3><a href="{{ url }}{{ all }}">
+          {{ bb.token_name}}</a></h3>
+</ul>
+    <h3>Ваши токены</h3>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Монета </th>
+              <th>Количество &#36 потраченных на покупку</th>
+              <th>Кол-во токенов</th>
+              <th>Цена в &#36 при покупке за токен</th>
+              <th>Текущая цена в &#36 за токен</th>
+              <th>Полный доход в &#36</th>
+              <th>Чистый доход в &#36</th>
+              <th>Править</th>
+            </tr>
+          </thead>
+{% for obj in token_list %}
+    {% url 'main:profile_token_detail' pk=obj.pk as url %}
+    <a href="{{ url }}{{ all }}"></a>
+          <tbody>
+            <tr>
+                <td><a href="{{ url }}{{ all }}">{{ obj.token_name }}</a></td>
+                <td>{{ obj.purchase_amount.normalize }}</td>
+                <td>{{ obj.token_volume.normalize }}</td>
+                <td>{{ obj.start_price.normalize }}</td>
+                <td>{{ obj.actual_price.normalize }}</td>
+                <td>{{ obj.total_actual_price.normalize }}</td>
+                <td>{{ obj.token_profit.normalize }}</td>
+                <td><a href="{% url 'main:profile_token_change' pk=obj.pk %}">Исправить</a></td>
+                <td><a href="{% url 'main:profile_token_delete' pk=obj.pk %}">Удалить</a></td>
+            </tr>
+          </tbody>
+    {% endfor %}
+        </table>
+<h5>Tokenote.ru - учет ваших монет!</h5>
+{% else  %}
+Нет данных, пожлуйста добавьте запись о ваших монетах.
+{% endif %}
+{% endblock %}
+</div>

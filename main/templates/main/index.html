@@ -1,0 +1,56 @@
+{% extends "layout/basic.html" %}
+
+{% load thumbnail %}
+{% load static %}
+
+{% block content %}
+
+{% if token_list %}
+<ul class="list-unstyled">
+        {% url 'main:profile_token_detail' pk=obj.pk as url %}
+        <a href="{{ url }}{{ all }}">
+        </a>
+          <h3><a href="{{ url }}{{ all }}">
+          {{ obj.token_name}}</a></h3>
+</ul>
+    <h3>Ваши токены</h3>
+    <h6>что бы их отредактировать, перейдите в профиль.</h6>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Монета </th>
+              <th>Количество &#36 потраченных на покупку</th>
+              <th>Кол-во токенов</th>
+              <th>Цена в &#36 при покупке за токен</th>
+              <th>Текущая цена в &#36 за токен</th>
+              <th>Полный доход в &#36</th>
+              <th>Чистый доход в &#36</th>
+
+            </tr>
+          </thead>
+{% for obj in token_list %}
+    {% url 'main:profile_token_detail' pk=obj.pk as url %}
+    <a href="{{ url }}{{ all }}"></a>
+          <tbody >
+            <tr>
+                <td><a href="{{ url }}{{ all }}">{{ obj.token_name }}</a></td>
+                <td>{{ obj.purchase_amount.normalize }}</td>
+                <td>{{ obj.token_volume.normalize }}</td>
+                <td>{{ obj.start_price.normalize }}</td>
+                <td>{{ obj.actual_price.normalize }}</td>
+                <td>{{ obj.total_actual_price.normalize }}</td>
+                <td>{{ obj.token_profit.normalize }}</td>
+
+            </tr>
+          </tbody>
+    {% endfor %}
+        </table>
+      </div>
+<h5>Tokenote.ru - учет ваших монет!</h5>
+{% else  %}
+    <p ><h3 class="container text-center text-md-start mt-5 text-dark">Пожалуйста выполните вход или пройдите регистрацию.</h3></p>
+{% endif %}
+    <h2>Новости</h2>
+    <h5>Данный блок находиться в разработке</h5>
+{% endblock %}
