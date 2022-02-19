@@ -24,6 +24,12 @@ class RegisterUserForm(forms.ModelForm):
       widget=forms.PasswordInput,
       help_text='Введите тот же самый пароль еще раз для проверки')
 
+    def clean_email(self):
+        email = self.cleaned_data['email'].strip()
+        if AdvUser.objects.filter(email__iexact=email).exists():
+            raise ValidationError('Этот Email уже занят!')
+        return email
+
     def clean_password1(self):
         password1 = self.cleaned_data['password1']
         if password1:
