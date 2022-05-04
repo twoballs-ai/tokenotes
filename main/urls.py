@@ -6,7 +6,7 @@ from .views import index, other_page, BBLoginView, profile, token_profile, BBLog
     BBPasswordResetDoneView, BBPasswordResetConfirmView, \
     BBPasswordResetCompleteView, by_rubric, detail, profile_bb_detail, \
     profile_bb_add, profile_bb_change, profile_bb_delete, profile_token_add, \
-    profile_token_detail, profile_token_change, profile_token_delete
+    profile_token_detail, profile_token_change, profile_token_delete, topRate
 
 app_name = 'main'
 urlpatterns = [
@@ -53,4 +53,5 @@ urlpatterns = [
     path('<int:pk>/', by_rubric, name='by_rubric'),
     path('<str:page>/', other_page, name='other'),
     path('', index, name='index'),
+    path('top', topRate, name='topRate'),
 ]

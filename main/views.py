@@ -23,11 +23,19 @@ from .forms import ChangeUserInfoForm, RegisterUserForm, SearchForm, \
     BbForm, AIFormSet, UserCommentForm
 # from .forms import GuestCommentForm
 from .utilities import signer
+from .marketcap import readJsonLocal
+
 
 def index(request):
     token_list = Token.objects.filter(author=request.user.pk)
     context = {'token_list': token_list}
     return render(request, 'main/index.html', context)
+
+
+def topRate(request):
+    data = readJsonLocal()
+    return render(request, 'main/top_rating.html',data)
+
 
 def other_page(request, page):
     try:
