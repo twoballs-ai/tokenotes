@@ -1,3 +1,5 @@
+import pprint
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
 from django.template import TemplateDoesNotExist
@@ -24,6 +26,7 @@ from .forms import ChangeUserInfoForm, RegisterUserForm, SearchForm, \
 # from .forms import GuestCommentForm
 from .utilities import signer
 from .marketcap import readJsonLocal
+from django.http import JsonResponse
 
 
 def index(request):
@@ -32,9 +35,10 @@ def index(request):
     return render(request, 'main/index.html', context)
 
 
-def topRate(request):
-    data = readJsonLocal()
-    return render(request, 'main/top_rating.html',data)
+def topRate(request, *args, **kwargs):
+    datatop=readJsonLocal()
+    context = {'datatop': datatop}
+    return render(request, 'main/top_rating.html', context)
 
 
 def other_page(request, page):

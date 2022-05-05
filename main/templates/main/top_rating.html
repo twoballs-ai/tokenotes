@@ -4,8 +4,33 @@
 {% load static %}
 
 {% block content %}
-<p>vdsc</p>
-    {% for obj in data %}
+<p>Топ 100 крипто проектов</p>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Сокращенное название</th>
+      <th scope="col">Текущая цена</th>
+        <th scope="col">Изменение за 24 часа в %</th>
+        <th scope="col">Изменение за 7 дней в %</th>
+    </tr>
+  </thead>
+  <tbody>
+     {% for data in datatop %}
+    <tr>
+    <th>{{data.cmc_rank}}</th>
+    <td>{{data.name}}</td>
+    <td>{{data.symbol}}</td>
+    <td>{{data.quote.USD.price|floatformat:5}} USD</td>
+    <td>{{data.quote.USD.percent_change_24h }} %</td>
+    <td>{{data.quote.USD.percent_change_7d }} %</td>
+    </tr>
 
     {% endfor %}
+  </tbody>
+</table>
+
+
+
 {% endblock %}

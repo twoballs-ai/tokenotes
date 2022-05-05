@@ -3,6 +3,8 @@ from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 
+
+
 # url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
 #
 # parameters = {
@@ -38,7 +40,15 @@ import json
 # pprint.pprint(saverJson())
 
 
-def readJsonLocal(*args,**kwargs):
+
+def readJsonLocal(*args, **kwargs):
     with open('data.json', 'r', encoding='utf-8') as json_file:
-        datafile = json.load(json_file)
-    return datafile['data']
+        datafile = json.load(json_file)['data']
+    # for i in datafile:
+    #     cmc_rank = i.get('cmc_rank')
+    #     slug = i.get('slug')
+    #     symbol = i.get('symbol')
+    #     price = i['quote']['USD'].get('price')
+    #     percent_change_7d = i['quote']['USD'].get('percent_change_7d')
+    #     percent_change_24h = i['quote']['USD'].get('percent_change_24h')
+    return datafile
