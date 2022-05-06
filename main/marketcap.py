@@ -5,39 +5,39 @@ import json
 
 
 
-# url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
-#
+url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
+
+parameters = {
+    'start': '1',
+    'limit': '100',
+    'convert': 'USD'
+}
 # parameters = {
-#     'start': '1',
-#     'limit': '100',
-#     'convert': 'USD'
+#     'slug': 'bitcoin',
+#     'convert': 'usd'
 # }
-# # parameters = {
-# #     'slug': 'bitcoin',
-# #     'convert': 'usd'
-# # }
-# headers = {
-#     'Accepts': 'application/json',
-#     'X-CMC_PRO_API_KEY': 'f48719cc-d0d4-4602-b854-f85b1ef8ebd8',
-# }
-# session = Session()
-# session.headers.update(headers)
-#
-# try:
-#     response = session.get(url, params=parameters)
-#     data1 = json.loads(response.text)
-#     # pprint.pprint(data1)
-# except (ConnectionError, Timeout, TooManyRedirects) as e:
-#     print(e)
-#
-#
-# def saverJson(*args,**kwargs):
-#     with open('data.json', 'w') as outfile:
-#         json.dump(data1, outfile)
-#     data= ((data1)['data'][0])
-#     return data
-#
-# pprint.pprint(saverJson())
+headers = {
+    'Accepts': 'application/json',
+    'X-CMC_PRO_API_KEY': 'f48719cc-d0d4-4602-b854-f85b1ef8ebd8',
+}
+session = Session()
+session.headers.update(headers)
+
+try:
+    response = session.get(url, params=parameters)
+    data1 = json.loads(response.text)
+    # pprint.pprint(data1)
+except (ConnectionError, Timeout, TooManyRedirects) as e:
+    print(e)
+
+
+def saverJson(*args,**kwargs):
+    with open('data.json', 'w') as outfile:
+        json.dump(data1, outfile)
+    data= ((data1)['data'][0])
+    return data
+
+pprint.pprint(saverJson())
 
 
 

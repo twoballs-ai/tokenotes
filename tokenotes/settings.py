@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_cleanup',
     'easy_thumbnails',
     'captcha',
+    'django_crontab',
     # 'corsheaders',
     #  'api.apps.ApiConfig',
     # 'rest_framework',
@@ -79,6 +80,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tokenotes.wsgi.application'
 
+CRONJOBS = [
+    ('*/7 * * * *', 'myapp.cron.my_scheduled_job')
+]
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
