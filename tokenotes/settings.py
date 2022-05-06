@@ -26,8 +26,9 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-!wo*h78gl1t3x=exnf2e1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG',default=True, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='')
-
+# prod and local
+# ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -137,9 +138,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = (BASE_DIR, 'static/')
 AUTH_USER_MODEL = 'main.AdvUser'
 
+DEFAULT_FROM_EMAIL = 'info@tokenote.ru'
 EMAIL_HOST = config('EMAIL_HOST',default='')
 EMAIL_PORT = config('EMAIL_PORT' , default=25,cast=int)
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD',default='')

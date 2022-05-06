@@ -2,7 +2,7 @@ import pprint
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
-
+from decouple import config
 
 
 url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
@@ -18,7 +18,7 @@ parameters = {
 # }
 headers = {
     'Accepts': 'application/json',
-    'X-CMC_PRO_API_KEY': 'f48719cc-d0d4-4602-b854-f85b1ef8ebd8',
+    'X-CMC_PRO_API_KEY': config('CMC_KEY'),
 }
 session = Session()
 session.headers.update(headers)
