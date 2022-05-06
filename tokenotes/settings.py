@@ -10,22 +10,23 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-import os
+from pathlib import Path
+from decouple import config
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'foo'
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-!wo*h78gl1t3x=exnf2e1djx0f7lg!a2ax1p(hv=dd%8(g3db')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG',default=True, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='')
 
 
 # Application definition
@@ -89,8 +90,12 @@ CRONJOBS = [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'tokenotes.data'),
+        'ENGINE': config('ENGINE', default='django.db.backends.sqlite3'),
+        'NAME': config('NAME', default = BASE_DIR / 'db.sqlite3'),
+        'USER': config('USER',default=''),
+        'PASSWORD': config('PASSWORD',default=''),
+        'HOST': config('HOST',default=''),
+        'PORT': '',
     }
 }
 
@@ -135,9 +140,13 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'main.AdvUser'
 
-EMAIL_PORT = 1025
+EMAIL_HOST = config('EMAIL_HOST',default='')
+EMAIL_PORT = config('EMAIL_PORT' , default=25,cast=int)
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD',default='')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER',default='')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS' ,default='', cast=bool)
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 MEDIA_URL = '/media/'
 
 THUMBNAIL_ALIASES = {
